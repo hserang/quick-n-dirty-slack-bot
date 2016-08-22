@@ -1,0 +1,23 @@
+body {
+  font-family: Sans-Serif;
+}
+
+.message-wrapper {
+  height: 400px;
+  width: 300px;
+  margin: 10px;
+  float: left;
+  background-color: #eeeeee;
+}
+
+.message-header {
+  padding: 10px;
+  text-align: center;
+}
+
+.text-wrapper {
+  min-height: 295px;
+  padding: 10px;
+  margin: 5px;
+  background-color: #ffffff;
+}

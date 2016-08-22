@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <title>Webpack App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel="stylesheet" type="text/css" href="theme.css">
 </head>
 <body>
   <h1>Message Feed</h1>
@@ -22,9 +24,11 @@
     var Message = React.createClass({
       render: function() {
         return (
-          <div>
-            <h3>{this.props.username}</h3>
-            <p>{this.props.text}</p>
+          <div className="message-wrapper">
+            <h3 className="message-header">{this.props.username} says:</h3>
+            <div className="text-wrapper">
+              <p>{this.props.text}</p>
+            </div>
           </div>
         );
       }
