@@ -14,3 +14,11 @@ Real time web display of messages from Slack.
 * clone
 * npm install
 * SLACK_API_TOKEN=<use your slack token here> npm start
+
+## Todos
+* styling
+* index react elements by the timestamp (message unique identifier)
+* update messages with responses
+* configurable message removal
+* longevity testing
+* any testing at all really!
