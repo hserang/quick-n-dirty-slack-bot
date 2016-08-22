@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Webpack App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <h1>Message Feed</h1>
+  <div id="container">
+    <p>...Loading</p>
+  </div>
+
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="js/react.min.js"></script>
+  <script src="js/react-dom.min.js"></script>
+  <script src="js/babel-core.min.js"></script>
+  <script type="text/babel">
+    var socket = io('http://localhost:3000');
+    var messages = [];
+
+    var Message = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <h3>{this.props.username}</h3>
+            <p>{this.props.text}</p>
+          </div>
+        );
+      }
+    });
+
+    var Messages = React.createClass({
+
+      buildMessages: function(messages) {
+        return messages.map(function(messageItem) {
+          return (
+          <Message
+            username = {messageItem.username}
+            text = {messageItem.text}
+          />);
+        });
+      },
+
+      render: function() {
+        var messages = this.buildMessages(this.props.messages);
+
+        return (
+          <div>
+            {messages}
+          </div>
+        );
+      }
+    });
+
+    var MessagesApplication = React.createClass({
+
+      getInitialState() {
+        return {
+          messages:[]
+        };
+      },
+
+      componentDidMount() {
+        socket.on('init', this.initialize),
+        socket.on('message', this.messageReceive)
+      },
+
+      initialize: function() {
+        console.log('socket initialize');
+      },
+
+      messageReceive: function(message) {
+        var messages = this.state.messages;
+
+        messages.push(message);
+        this.setState(messages);
+      },
+
+      render: function() {
+        return <Messages messages={this.state.messages}/>;
+      }
+    });
+
+    ReactDOM.render(
+      <MessagesApplication messages={messages} />,
+      document.getElementById('container')
+    );
+
+  </script>
+</html>
